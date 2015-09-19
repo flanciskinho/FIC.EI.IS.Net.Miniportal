@@ -1,0 +1,16 @@
+﻿<products>
+<product
+  id="1"
+  name="Arduino UNO"
+  category="Electronica"
+  description="Genuine Arduino UNO R3"
+  dShipment="UPS"
+  iPrice="40.0"
+  cPrice="30.0"
+  initDate="2014-08-11 20:20:24"
+  endDate="2014-08-11 20:21:44"
+  minutesToEnd="1"
+  owner="fcedron"
+  ownerId="1"
+/>
+</products>

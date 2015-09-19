@@ -1,0 +1,192 @@
+<%@ Master Language="C#" AutoEventWireup="true" Codebehind="Miniportal.master.cs"
+    Inherits="Es.Udc.DotNet.MiniPortal.Web.Miniportal" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Miniportal</title>
+    <link href="~/Css/Styles.css" rel="stylesheet" type="text/css" />
+    <!-- Le styles -->
+    <link href="./Css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      /* Wrapper for page content to push down footer */
+      #wrap {
+        min-height: 100%;
+        height: auto !important;
+        height: 100%;
+        /* Negative indent footer by it's height */
+        margin: 0 auto -60px;
+      }
+
+      /* Set the fixed height of the footer here */
+      #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+      @media (max-width: 767px) {
+        #footer {
+          margin-left: -20px;
+          margin-right: -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    </style>
+    <link href="./Css/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="./js/html5shiv.js"></script>
+    <![endif]-->
+    
+    <link rel="shortcut icon" href="./ico/favicon.png" />
+
+</head>
+<body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <asp:HyperLink ID="pageTitle" runat="server" 
+              NavigateUrl="~/Pages/MainPage.aspx"
+              meta:resourcekey="lclPageTitle"
+              class="brand"/>
+
+
+          <div class="nav-collapse collapse">
+              
+              <span id="menuExplanation"  class="navbar-text pull-right">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuExplanation" runat="server">
+                </asp:ContentPlaceHolder>
+              </span>
+
+              <span id="menuWelcome"  class="navbar-text pull-right">
+            
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuWelcome" runat="server">
+                    <asp:Label ID="lblWelcome" runat="server" meta:resourcekey="lblWelcome" />
+                </asp:ContentPlaceHolder>
+                
+              </span>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+
+    <noscript>
+  	  <div class="container">
+  	    <div class="alert alert-danger bs-alert-old-docs">
+        <strong>
+            <asp:Localize ID="JSdown" runat="server"
+                meta:resourcekey="JSdown" />
+        </strong>
+            <asp:Localize ID="RecommendJS" runat="server"
+                meta:resourcekey="RecommendJS" />
+        <!--
+  	      <strong>Javascript está desactivado!</strong>
+  	      Se recomienda su activación.
+          -->
+  	    </div>
+  	  </div>
+    </noscript>
+
+
+
+       <div class="container-fluid">
+          <div class="row-fluid">
+            
+                
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuLinks" runat="server">
+
+        <div class="span3">
+            <div class="well sidebar-nav">
+                <ul class="nav nav-list">
+
+                    <li><!--<asp:Label ID="LblDash4" runat="server" Text="-" />-->
+                    <asp:HyperLink ID="lnkHome" runat="server"
+                        NavigateUrl="~/Pages/MainPage.aspx" 
+                        meta:resourcekey="lnkHome" /></li>
+                    <li><!--<asp:Label ID="lblDash1" runat="server" Text="-" />-->
+                    <asp:HyperLink ID="lnkAuthenticate" runat="server" 
+                        NavigateUrl="~/Pages/User/Authentication.aspx"
+                         meta:resourcekey="lnkAuthenticate" /></li>
+                    <li><!--<asp:Label ID="lblDash2" runat="server" Text="-" />-->
+                    <asp:HyperLink ID="lnkUpdate" runat="server" 
+                        NavigateUrl="~/Pages/User/UpdateUserProfile.aspx"
+                        meta:resourcekey="lnkUpdate" /></li>
+                    <li>
+                    <asp:HyperLink ID="lnkFavourite" runat="server"
+                        NavigateUrl = "~/Pages/User/ManageFavourite.aspx"
+                        meta:resourcekey="lnkFavourite" /></li>
+                    <li><!--<asp:Label ID="lblDash3" runat="server" Text="-" />-->
+                    <asp:HyperLink ID="lnkLogout" runat="server"
+                        NavigateUrl="~/Pages/User/Logout.aspx" 
+                        meta:resourcekey="lnkLogout" />
+                     </li>
+                </ul>
+            </div><!--/.well -->
+
+            <br />
+            <asp:Panel ID="pnlWordCloud" runat="server" Visible="false">
+                <div class="well" >                   
+                    <asp:Repeater ID="WordCloudRepeater"  OnItemDataBound="onItemDataBoundWordCloud"  runat="server" >
+                        <ItemTemplate >
+                            <asp:HyperLink ID="cloudLink" runat="server" Text='<%# Eval("name").ToString() %>'
+                                CssClass=" btn "/>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
+            </asp:Panel>
+        </div><!--/span-->
+    </asp:ContentPlaceHolder>
+
+
+        <div class="span9">
+
+			<div id="content">
+              <asp:ContentPlaceHolder ID="ContentPlaceHolder_BodyContent" runat="server" />
+            </div>
+
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr />
+
+      <footer id="footer">
+        <asp:Localize ID="lclFooter" runat="server" meta:resourcekey="lclFooter" />
+      </footer>
+      
+
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
+    <script src="./js/bootstrap.js" type="text/javascript"></script>
+
+
+</body>
+<!-- End of HTML. -->
+</html>

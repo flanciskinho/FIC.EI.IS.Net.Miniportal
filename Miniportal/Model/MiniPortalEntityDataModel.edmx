@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Es.Udc.DotNet.MiniPortal.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="EsUdcDotNetMiniPortalModelStoreContainer">
+          <EntitySet Name="Comment" EntityType="Es.Udc.DotNet.MiniPortal.Model.Store.Comment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Favourite" EntityType="Es.Udc.DotNet.MiniPortal.Model.Store.Favourite" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Label" EntityType="Es.Udc.DotNet.MiniPortal.Model.Store.Label" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LabelComment" EntityType="Es.Udc.DotNet.MiniPortal.Model.Store.LabelComment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfile" EntityType="Es.Udc.DotNet.MiniPortal.Model.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Valuation" EntityType="Es.Udc.DotNet.MiniPortal.Model.Store.Valuation" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Comment_LabelComment" Association="Es.Udc.DotNet.MiniPortal.Model.Store.FK_Comment_LabelComment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="LabelComment" EntitySet="LabelComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_User" Association="Es.Udc.DotNet.MiniPortal.Model.Store.FK_Comment_User">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_User" Association="Es.Udc.DotNet.MiniPortal.Model.Store.FK_Favourite_User">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Favourite" EntitySet="Favourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Label_LabelComment" Association="Es.Udc.DotNet.MiniPortal.Model.Store.FK_Label_LabelComment">
+            <End Role="Label" EntitySet="Label" />
+            <End Role="LabelComment" EntitySet="LabelComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valuation_User" Association="Es.Udc.DotNet.MiniPortal.Model.Store.FK_Valuation_User">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Valuation" EntitySet="Valuation" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="commentId" />
+          </Key>
+          <Property Name="commentId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="txt" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="addDate" Type="datetime2" Nullable="false" />
+          <Property Name="productId" Type="bigint" Nullable="false" />
+          <Property Name="userProfileId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Favourite">
+          <Key>
+            <PropertyRef Name="favouriteId" />
+          </Key>
+          <Property Name="favouriteId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="comment" Type="varchar" MaxLength="250" />
+          <Property Name="addDate" Type="datetime2" Nullable="false" />
+          <Property Name="productId" Type="bigint" Nullable="false" />
+          <Property Name="userProfileId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Label">
+          <Key>
+            <PropertyRef Name="labelId" />
+          </Key>
+          <Property Name="labelId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="60" />
+          <Property Name="cnt" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LabelComment">
+          <Key>
+            <PropertyRef Name="labelId" />
+            <PropertyRef Name="commentId" />
+          </Key>
+          <Property Name="labelId" Type="bigint" Nullable="false" />
+          <Property Name="commentId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="usrId" />
+          </Key>
+          <Property Name="usrId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="loginName" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="enPassword" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="firstName" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="lastName" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="Valuation">
+          <Key>
+            <PropertyRef Name="valuationId" />
+          </Key>
+          <Property Name="valuationId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="score" Type="bigint" Nullable="false" />
+          <Property Name="addDate" Type="datetime2" Nullable="false" />
+          <Property Name="txt" Type="varchar" MaxLength="250" />
+          <Property Name="sellerId" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="userProfileId" Type="bigint" Nullable="false" />
+          <Property Name="productId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comment_LabelComment">
+          <End Role="Comment" Type="Es.Udc.DotNet.MiniPortal.Model.Store.Comment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LabelComment" Type="Es.Udc.DotNet.MiniPortal.Model.Store.LabelComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="commentId" />
+            </Principal>
+            <Dependent Role="LabelComment">
+              <PropertyRef Name="commentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_User">
+          <End Role="UserProfile" Type="Es.Udc.DotNet.MiniPortal.Model.Store.UserProfile" Multiplicity="1" />
+          <End Role="Comment" Type="Es.Udc.DotNet.MiniPortal.Model.Store.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="usrId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="userProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_User">
+          <End Role="UserProfile" Type="Es.Udc.DotNet.MiniPortal.Model.Store.UserProfile" Multiplicity="1" />
+          <End Role="Favourite" Type="Es.Udc.DotNet.MiniPortal.Model.Store.Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="usrId" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="userProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Label_LabelComment">
+          <End Role="Label" Type="Es.Udc.DotNet.MiniPortal.Model.Store.Label" Multiplicity="1" />
+          <End Role="LabelComment" Type="Es.Udc.DotNet.MiniPortal.Model.Store.LabelComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Label">
+              <PropertyRef Name="labelId" />
+            </Principal>
+            <Dependent Role="LabelComment">
+              <PropertyRef Name="labelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valuation_User">
+          <End Role="UserProfile" Type="Es.Udc.DotNet.MiniPortal.Model.Store.UserProfile" Multiplicity="1" />
+          <End Role="Valuation" Type="Es.Udc.DotNet.MiniPortal.Model.Store.Valuation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="usrId" />
+            </Principal>
+            <Dependent Role="Valuation">
+              <PropertyRef Name="userProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Es.Udc.DotNet.MiniPortal.Model" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MiniPortalEntitiesContainer" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="Comment" EntityType="Es.Udc.DotNet.MiniPortal.Model.Comment" />
+          <EntitySet Name="Favourite" EntityType="Es.Udc.DotNet.MiniPortal.Model.Favourite" />
+          <EntitySet Name="Label" EntityType="Es.Udc.DotNet.MiniPortal.Model.Label" />
+          <EntitySet Name="UserProfile" EntityType="Es.Udc.DotNet.MiniPortal.Model.UserProfile" />
+          <EntitySet Name="Valuation" EntityType="Es.Udc.DotNet.MiniPortal.Model.Valuation" />
+          <AssociationSet Name="FK_Comment_User" Association="Es.Udc.DotNet.MiniPortal.Model.FK_Comment_User">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_User" Association="Es.Udc.DotNet.MiniPortal.Model.FK_Favourite_User">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Favourite" EntitySet="Favourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Valuation_User" Association="Es.Udc.DotNet.MiniPortal.Model.FK_Valuation_User">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Valuation" EntitySet="Valuation" />
+          </AssociationSet>
+          <AssociationSet Name="LabelComment" Association="Es.Udc.DotNet.MiniPortal.Model.LabelComment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Label" EntitySet="Label" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="commentId" />
+          </Key>
+          <Property Type="Int64" Name="commentId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="txt" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="addDate" Nullable="false" />
+          <Property Type="Int64" Name="productId" Nullable="false" />
+          <Property Type="Int64" Name="userProfileId" Nullable="false" />
+          <NavigationProperty Name="UserProfile" Relationship="Es.Udc.DotNet.MiniPortal.Model.FK_Comment_User" FromRole="Comment" ToRole="UserProfile" />
+          <NavigationProperty Name="Label" Relationship="Es.Udc.DotNet.MiniPortal.Model.LabelComment" FromRole="Comment" ToRole="Label" />
+        </EntityType>
+        <EntityType Name="Favourite">
+          <Key>
+            <PropertyRef Name="favouriteId" />
+          </Key>
+          <Property Type="Int64" Name="favouriteId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="comment" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="addDate" Nullable="false" />
+          <Property Type="Int64" Name="productId" Nullable="false" />
+          <Property Type="Int64" Name="userProfileId" Nullable="false" />
+          <NavigationProperty Name="UserProfile" Relationship="Es.Udc.DotNet.MiniPortal.Model.FK_Favourite_User" FromRole="Favourite" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Label">
+          <Key>
+            <PropertyRef Name="labelId" />
+          </Key>
+          <Property Type="Int64" Name="labelId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="cnt" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="Es.Udc.DotNet.MiniPortal.Model.LabelComment" FromRole="Label" ToRole="Comment" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="usrId" />
+          </Key>
+          <Property Type="Int64" Name="usrId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="loginName" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="enPassword" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Comment" Relationship="Es.Udc.DotNet.MiniPortal.Model.FK_Comment_User" FromRole="UserProfile" ToRole="Comment" />
+          <NavigationProperty Name="Favourite" Relationship="Es.Udc.DotNet.MiniPortal.Model.FK_Favourite_User" FromRole="UserProfile" ToRole="Favourite" />
+          <NavigationProperty Name="Valuation" Relationship="Es.Udc.DotNet.MiniPortal.Model.FK_Valuation_User" FromRole="UserProfile" ToRole="Valuation" />
+        </EntityType>
+        <EntityType Name="Valuation">
+          <Key>
+            <PropertyRef Name="valuationId" />
+          </Key>
+          <Property Type="Int64" Name="valuationId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int64" Name="score" Nullable="false" />
+          <Property Type="DateTime" Name="addDate" Nullable="false" />
+          <Property Type="String" Name="txt" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="sellerId" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="userProfileId" Nullable="false" />
+          <Property Type="Int64" Name="productId" Nullable="false" />
+          <NavigationProperty Name="UserProfile" Relationship="Es.Udc.DotNet.MiniPortal.Model.FK_Valuation_User" FromRole="Valuation" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK_Comment_User">
+          <End Type="Es.Udc.DotNet.MiniPortal.Model.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.MiniPortal.Model.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="usrId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="userProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_User">
+          <End Type="Es.Udc.DotNet.MiniPortal.Model.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.MiniPortal.Model.Favourite" Role="Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="usrId" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="userProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Valuation_User">
+          <End Type="Es.Udc.DotNet.MiniPortal.Model.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="Es.Udc.DotNet.MiniPortal.Model.Valuation" Role="Valuation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="usrId" />
+            </Principal>
+            <Dependent Role="Valuation">
+              <PropertyRef Name="userProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LabelComment">
+          <End Type="Es.Udc.DotNet.MiniPortal.Model.Comment" Role="Comment" Multiplicity="*" />
+          <End Type="Es.Udc.DotNet.MiniPortal.Model.Label" Role="Label" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EsUdcDotNetMiniPortalModelStoreContainer" CdmEntityContainer="MiniPortalEntitiesContainer">
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.MiniPortal.Model.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="userProfileId" ColumnName="userProfileId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="addDate" ColumnName="addDate" />
+                <ScalarProperty Name="txt" ColumnName="txt" />
+                <ScalarProperty Name="commentId" ColumnName="commentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favourite">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.MiniPortal.Model.Favourite">
+              <MappingFragment StoreEntitySet="Favourite">
+                <ScalarProperty Name="userProfileId" ColumnName="userProfileId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="addDate" ColumnName="addDate" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="favouriteId" ColumnName="favouriteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Label">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.MiniPortal.Model.Label">
+              <MappingFragment StoreEntitySet="Label">
+                <ScalarProperty Name="cnt" ColumnName="cnt" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="labelId" ColumnName="labelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfile">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.MiniPortal.Model.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="enPassword" ColumnName="enPassword" />
+                <ScalarProperty Name="loginName" ColumnName="loginName" />
+                <ScalarProperty Name="usrId" ColumnName="usrId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Valuation">
+            <EntityTypeMapping TypeName="Es.Udc.DotNet.MiniPortal.Model.Valuation">
+              <MappingFragment StoreEntitySet="Valuation">
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="userProfileId" ColumnName="userProfileId" />
+                <ScalarProperty Name="sellerId" ColumnName="sellerId" />
+                <ScalarProperty Name="txt" ColumnName="txt" />
+                <ScalarProperty Name="addDate" ColumnName="addDate" />
+                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="valuationId" ColumnName="valuationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="LabelComment" TypeName="Es.Udc.DotNet.MiniPortal.Model.LabelComment" StoreEntitySet="LabelComment">
+            <EndProperty Name="Label">
+              <ScalarProperty Name="labelId" ColumnName="labelId" />
+            </EndProperty>
+            <EndProperty Name="Comment">
+              <ScalarProperty Name="commentId" ColumnName="commentId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MiniPortalEntityDataModel">
+        <EntityTypeShape EntityType="Es.Udc.DotNet.MiniPortal.Model.Comment" Width="1.5" PointX="3" PointY="1.25" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.MiniPortal.Model.Favourite" Width="1.5" PointX="3" PointY="4.375" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.MiniPortal.Model.Label" Width="1.5" PointX="5.25" PointY="1.5" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.MiniPortal.Model.UserProfile" Width="1.5" PointX="0.75" PointY="4.25" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.MiniPortal.Model.Valuation" Width="1.5" PointX="3" PointY="7.5" Height="2.5571907552083317" />
+        <AssociationConnector Association="Es.Udc.DotNet.MiniPortal.Model.FK_Comment_User" >
+          <ConnectorPoint PointX="1.5" PointY="4.25" />
+          <ConnectorPoint PointX="1.5" PointY="2.4324446614583337" />
+          <ConnectorPoint PointX="3" PointY="2.4324446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Es.Udc.DotNet.MiniPortal.Model.FK_Favourite_User" >
+          <ConnectorPoint PointX="2.25" PointY="5.5574446614583337" />
+          <ConnectorPoint PointX="3" PointY="5.5574446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="Es.Udc.DotNet.MiniPortal.Model.FK_Valuation_User" >
+          <ConnectorPoint PointX="1.5" PointY="6.9994921875" />
+          <ConnectorPoint PointX="1.5" PointY="8.7785953776041659" />
+          <ConnectorPoint PointX="3" PointY="8.7785953776041659" />
+        </AssociationConnector>
+        <AssociationConnector Association="Es.Udc.DotNet.MiniPortal.Model.LabelComment" >
+          <ConnectorPoint PointX="4.5" PointY="2.3939925130208337" />
+          <ConnectorPoint PointX="5.25" PointY="2.3939925130208337" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

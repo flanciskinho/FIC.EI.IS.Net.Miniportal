@@ -1,0 +1,13 @@
+﻿<products show="10" total="12">
+  <product price="7.50" minutesToEnd="104208" ends="2014-08-11 20:20:24" seller="nlrivas" name="Arduino Pro" category="Electronica" id="44"/>
+  <product price="29.95" minutesToEnd="236748" ends="2014-11-11 20:20:24" seller="nlrivas" name="Banco de abdominales" category="Deportes" id="32"/>
+  <product price="6.50" minutesToEnd="236748" ends="2014-11-11 20:20:24" seller="fcedron" name="Pala de padel" category="Deportes" id="31"/>
+  <product price="22.65" minutesToEnd="236748" ends="2014-11-11 20:20:24" seller="nlrivas" name="Disipador AEROCOOL" category="Informatica" id="30"/>
+  <product price="12.11" minutesToEnd="236748" ends="2014-11-11 20:20:24" seller="nlrivas" name="Adaptador MiniDisplayPort" category="Informatica" id="22"/>
+  <product price="8.20" minutesToEnd="236748" ends="2014-11-11 20:20:24" seller="fcedron" name="Protoboard" category="Electronica" id="28"/>
+  <product price="2.10" minutesToEnd="236748" ends="2014-11-11 20:20:24" seller="fcedron" name="Sensor de humedad" category="Electronica" id="27"/>
+  <product price="4.00" minutesToEnd="236748" ends="2014-11-11 20:20:24" seller="fcedron" name="Arduino UNO" category="Electronica" id="26"/>
+  <product price="10.00" minutesToEnd="236748" ends="2014-11-11 20:20:24" seller="lucerina" name="Arduino MEGA" category="Electronica" id="25"/>
+  <product price="5.50" minutesToEnd="236748" ends="2014-11-11 20:20:24" seller="lucerina" name="Arduino UNO" category="Electronica" id="24"/>
+</products>
+
